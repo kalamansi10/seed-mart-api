@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     get "/get-item/:item_id", to: "shop#get_item"
   end
 
-  namespace :v1 do
-    concerns :shop_queries
+  namespace :api do
+    namespace :v1 do
+      concerns :shop_queries
+    end
   end
 end
