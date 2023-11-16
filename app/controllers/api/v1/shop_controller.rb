@@ -1,4 +1,4 @@
-class V1::ShopController < ApplicationController
+class Api::V1::ShopController < ApplicationController
   def most_recent
     offset = params[:offset]
     render json: Seed.order(created_at: :desc)
@@ -30,12 +30,12 @@ class V1::ShopController < ApplicationController
     params[:filter].each do |k, v|
       item_list = item_list.where(k => v)
     end
-    list
+    item_list
   end
 
   def price_filter(item_list)
     item_list = item_list.where("price >= #{params[:minimum]}") unless !params[:minimum]
-    item_list = item_list.where("price <= #{params[:lessthan]}") unless !params[:maximum]
+    item_list = item_list.where("price <= #{params[:maximum]}") unless !params[:maximum]
     item_list
   end
 

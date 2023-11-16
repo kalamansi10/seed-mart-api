@@ -1,6 +1,6 @@
 require "test_helper"
 
-class V1::ShopControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::ShopControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
