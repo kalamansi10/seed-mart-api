@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   concern :shop_queries do
     get "/most-recent(/:offset)", to: "shop#most_recent"
     get "/search", to: "shop#search"
