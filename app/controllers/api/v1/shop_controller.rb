@@ -23,6 +23,15 @@ class Api::V1::ShopController < ApplicationController
     render json: Seed.find(params[:item_id])
   end
 
+  def set_filters
+    filters = {}
+    Seed.column_names.each do |attribute|
+      next if ["id", "name", "price", "tags", "image_links", "created_at", "updated_at"].any?(attribute)
+      filters[attribute] = Seed.distinct.pluck(attribute)
+    end
+    render json: filters
+  end
+
   private
 
   def item_filter(item_list)
