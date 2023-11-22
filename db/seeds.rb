@@ -589,3 +589,5 @@ banners = [
 ]
 
 banners.each {|data| Banner.create(data)}
+
+User.create({email:"aaa@aaa", password:"aaa@aaa"})
