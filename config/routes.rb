@@ -11,9 +11,17 @@ Rails.application.routes.draw do
     get "/get-item/:item_id", to: "shop#get_item"
   end
 
+  concern :cart_actions do
+    get "/get-cart", to: "cart#get_cart"
+    post "/add-to-cart", to: "cart#add_to_cart"
+    post "/update-cart", to: "cart#update_cart"
+    delete "/remove-from-cart/:carted_id", to: "cart#remove_from_cart"
+  end
+
   namespace :api do
     namespace :v1 do
       concerns :shop_queries
+      concerns :cart_actions
     end
   end
 end
