@@ -8,14 +8,13 @@ class Api::V1::CartController < ApplicationController
     if cart_item
       cart_item.update(amount: params[:amount].to_i + cart_item.amount)
     else
-      carted = current_user.carted.build
-      carted.item_id = params[:item_id]
-      carted.amount = params[:amount]
-      carted.save
+      current_user.carted.create({item_id:params[:item_id], amount:params[:amount]})
     end
   end
   def update_cart
-    Carted.find(params[:carted_id]).update(amount: params[:amount])
+    carted = Carted.find(params[:carted_id])
+    carted.update(amount: params[:amount]) if params[:amount]
+    carted.update(checkout: params[:checkout]) if params[:checkout]
   end
   def remove_from_cart
     Carted.find(params[:carted_id]).destroy
