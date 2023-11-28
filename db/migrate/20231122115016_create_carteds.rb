@@ -4,6 +4,7 @@ class CreateCarteds < ActiveRecord::Migration[7.1]
       t.bigint :user_id, null: false
       t.bigint :item_id, null: false
       t.integer :amount, null: false
+      t.boolean :checkout, default: false, null: false
 
       t.timestamps
     end

@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_22_115016) do
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.integer "amount", null: false
+    t.boolean "checkout", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
