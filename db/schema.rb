@@ -33,10 +33,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_013606) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "name"
+    t.string "fname"
+    t.string "lname"
     t.string "gender"
     t.date "birthday"
     t.text "adresses", default: [], array: true
+    t.string "payment_method"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -587,7 +587,6 @@ banners = [
     banner_link: "/"
   },
 ]
-
 banners.each {|data| Banner.create(data)}
 
-User.create({email:"aaa@aaa", password:"aaa@aaa"})
+User.create({email:"aaa@aaa", password:"aaa@aaa"}).create_profile
