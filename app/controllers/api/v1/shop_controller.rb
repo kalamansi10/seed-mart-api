@@ -24,12 +24,8 @@ class Api::V1::ShopController < ApplicationController
   end
 
   def items_properties
-    filters = {}
-    Seed.column_names.each do |attribute|
-      next if ["id", "name", "price", "tags", "image_links", "created_at", "updated_at"].any?(attribute)
-      filters[attribute] = Seed.distinct.pluck(attribute)
-    end
-    render json: filters
+    filters = Seed.column_names.except("id", "name", "price", "tags", "image_links", "created_at", "updated_at")
+    render json: filters.map { |attribute| [attribute, Seed.distinct.pluck(attribute)] }.to_h
   end
 
   private
@@ -43,9 +39,9 @@ class Api::V1::ShopController < ApplicationController
   end
 
   def price_filter(item_list)
-    item_list = item_list.where("price >= #{params[:minimum]}") unless !params[:minimum]
-    item_list = item_list.where("price <= #{params[:maximum]}") unless !params[:maximum]
+    item_list = item_list.where("price >= ?", params[:minimum]) unless params[:minimum].blank?
+    item_list = item_list.where("price <= ?", params[:maximum]) unless params[:maximum].blank?
     item_list
   end
-
+  
 end
