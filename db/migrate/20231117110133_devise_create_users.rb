@@ -33,12 +33,11 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       # t.datetime :locked_at
 
       ##Custom attributes
-      t.string :fname
-      t.string :lname
+      t.string :name
       t.string :gender
       t.date :birthday
       t.text :adresses, array: true, default: []
-      t.string :payment_method
+      t.text :payment_methods, array: true, default: []
 
       t.timestamps null: false
     end

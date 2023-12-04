@@ -67,12 +67,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_070550) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "fname"
-    t.string "lname"
+    t.string "name"
     t.string "gender"
     t.date "birthday"
     t.text "adresses", default: [], array: true
-    t.string "payment_method"
+    t.text "payment_methods", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
