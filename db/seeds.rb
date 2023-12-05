@@ -589,4 +589,4 @@ banners = [
 ]
 banners.each {|data| Banner.create(data)}
 
-User.create({email:"aaa@aaa", password:"aaa@aaa", fname: "John", lname: "Meyer"})
+User.create({email:"aaa@aaa", password:"aaa@aaa", name: "John Meyer"})
