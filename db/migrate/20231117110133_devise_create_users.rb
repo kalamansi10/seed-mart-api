@@ -36,8 +36,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :gender
       t.date :birthday
-      t.text :adresses, array: true, default: []
-      t.text :payment_methods, array: true, default: []
 
       t.timestamps null: false
     end

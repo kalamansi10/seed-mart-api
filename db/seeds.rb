@@ -565,7 +565,7 @@ seeds.each do |data|
     break if k == :price
     tags = tags + " " + v.downcase
   end
-  seed = Seed.new(data)
+  seed = Item.new(data)
   seed.update(tags: tags)
   seed.save
 end

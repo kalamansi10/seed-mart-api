@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_04_070550) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_06_011839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,28 +23,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_070550) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "carteds", force: :cascade do |t|
+  create_table "carted_items", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.integer "amount", null: false
+    t.boolean "is_for_checkout", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "reference_id", null: false
-    t.text "ordered_items", array: true
-    t.string "payment_method", null: false
-    t.json "shipping_address", null: false
-    t.json "charges", null: false
-    t.integer "order_total", null: false
-    t.string "status", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "seeds", force: :cascade do |t|
+  create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "plant_type"
     t.string "growing_season"
@@ -60,6 +48,38 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_070550) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", id: false, force: :cascade do |t|
+    t.bigint "order_reference", null: false
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "shipping_address_id", null: false
+    t.bigint "payment_method_id", null: false
+    t.integer "amount", null: false
+    t.json "adjustments", null: false
+    t.integer "total", null: false
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_reference"], name: "index_orders_on_order_reference"
+  end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shipping_addresses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "street_address", null: false
+    t.string "barangay", null: false
+    t.string "city", null: false
+    t.string "province", null: false
+    t.string "region", null: false
+    t.boolean "is_main", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -69,8 +89,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_070550) do
     t.string "name"
     t.string "gender"
     t.date "birthday"
-    t.text "adresses", default: [], array: true
-    t.text "payment_methods", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
