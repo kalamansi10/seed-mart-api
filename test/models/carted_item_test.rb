@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CartedTest < ActiveSupport::TestCase
+class CartedItemTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
