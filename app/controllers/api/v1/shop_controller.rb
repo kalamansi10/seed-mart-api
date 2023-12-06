@@ -1,14 +1,14 @@
 class Api::V1::ShopController < ApplicationController
   def most_recent
     offset = params[:offset]
-    render json: Seed.order(created_at: :desc)
+    render json: Item.order(created_at: :desc)
                      .offset((offset unless !offset))
                      .limit(12)
   end
   def search
     keyword = params[:keyword].downcase
     offset = params[:offset]
-    item_list = item_filter(Seed)
+    item_list = item_filter(Item)
     item_list = price_filter(item_list)
     render json: item_list.where("tags LIKE ?", "%" + keyword + "%")
                      .offset((offset unless !offset))
@@ -20,12 +20,12 @@ class Api::V1::ShopController < ApplicationController
   end
 
   def get_item
-    render json: Seed.find(params[:item_id])
+    render json: Item.find(params[:item_id])
   end
 
   def items_properties
-    filters = Seed.column_names.except("id", "name", "price", "tags", "image_links", "created_at", "updated_at")
-    render json: filters.map { |attribute| [attribute, Seed.distinct.pluck(attribute)] }.to_h
+    filters = Item.column_names.except("id", "name", "price", "tags", "image_links", "created_at", "updated_at")
+    render json: filters.map { |attribute| [attribute, Item.distinct.pluck(attribute)] }.to_h
   end
 
   private
@@ -43,5 +43,5 @@ class Api::V1::ShopController < ApplicationController
     item_list = item_list.where("price <= ?", params[:maximum]) unless params[:maximum].blank?
     item_list
   end
-  
+
 end
