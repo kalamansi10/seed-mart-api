@@ -64,6 +64,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_011839) do
   end
 
   create_table "payment_methods", force: :cascade do |t|
+    t.string "payment_type"
+    t.string "card_number"
+    t.string "expiry_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
