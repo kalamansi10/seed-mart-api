@@ -10,6 +10,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :planting_method
       t.string :package_size
       t.integer :price
+      t.integer :items_sold
       t.text :tags
       t.text :image_links, array: true, default: ["https://placehold.co/600x400", "https://placehold.co/400x600", "https://placehold.co/400x400", "https://placehold.co/600x600"]
 

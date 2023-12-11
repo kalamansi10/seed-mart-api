@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_011839) do
     t.string "planting_method"
     t.string "package_size"
     t.integer "price"
+    t.integer "items_sold"
     t.text "tags"
     t.text "image_links", default: ["https://placehold.co/600x400", "https://placehold.co/400x600", "https://placehold.co/400x400", "https://placehold.co/600x600"], array: true
     t.datetime "created_at", null: false
