@@ -8,6 +8,6 @@
     rails s
 
 ##### Seed account:
-    email: aaa@aaa.com
-    password: aaa@aaa.com
+    email: aaa@aaa
+    password: aaa@aaa
 
