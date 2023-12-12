@@ -3,7 +3,7 @@ class Api::V1::ShopController < ApplicationController
     offset = params[:offset]
     render json: Item.order(created_at: :desc)
                      .offset((offset unless !offset))
-                     .limit(12)
+                     .limit(25)
   end
   def search
     keyword = params[:keyword].downcase
@@ -12,7 +12,7 @@ class Api::V1::ShopController < ApplicationController
     item_list = price_filter(item_list)
     render json: item_list.where("tags LIKE ?", "%" + keyword + "%")
                      .offset((offset unless !offset))
-                     .limit(12)
+                     .limit(24)
   end
 
   def active_banners
