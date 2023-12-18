@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   }
 
   concern :shop_actions do
-    get "/most-recent(/:offset)", to: "shop#most_recent"
     get "/search", to: "shop#search"
     get "/items-properties", to: "shop#items_properties"
     get "/active-banners", to: "shop#active_banners"
