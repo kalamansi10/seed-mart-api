@@ -1,40 +1,30 @@
 class Api::V1::ShopController < ApplicationController
-  # GET /api/v1/shop
-  def index
-    offset = params[:offset]
-    # Retrieve most recent items, ordered by creation date
-    render json: {
-      item_list: Item.order(created_at: :desc)
-                     .offset(offset.presence)
-                     .limit(25)
-    }
-  end
 
-  # GET /api/v1/shop/search
+  # GET /api/v1/search
   def search
     keyword = params[:keyword].downcase
     offset = params[:offset]
     # Filter items based on keyword and additional filters
-    item_list = item_filter(price_filter(Item)).where("tags LIKE ?", "%#{keyword}%")
+    item_list = item_sorter(item_filter(price_filter(Item))).where("tags LIKE ?", "%#{keyword}%")
     render json: {
       item_list: item_list.offset(offset.presence).limit(20),
       item_count: item_list.count
     }
   end
 
-  # GET /api/v1/shop/active_banners
+  # GET /api/v1/active_banners
   def active_banners
     # Retrieve active banners
     render json: Banner.where(is_active?: true)
   end
 
-  # GET /api/v1/shop/:id
-  def show
+  # GET /api/v1/get_item/:item_id
+  def get_item
     # Retrieve details of a specific item
-    render json: Item.find(params[:id])
+    render json: Item.find(params[:item_id])
   end
 
-  # GET /api/v1/shop/items_properties
+  # GET /api/v1/items_properties
   def items_properties
     filters = Item.column_names
     # Retrieve distinct property values for items
@@ -43,6 +33,18 @@ class Api::V1::ShopController < ApplicationController
   end
 
   private
+
+  # Sorts item list
+  def item_sorter(item_list)
+  case params[:sort_by]
+  when nil
+    return item_list.order(created_at: :desc)
+  when "price-lowest"
+    return item_list.order(price: :asc)
+  when "price-highest"
+    return item_list.order(price: :desc)
+  end
+  end
 
   # Apply additional filters to the item list
   def item_filter(item_list)
