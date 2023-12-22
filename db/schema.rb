@@ -65,9 +65,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_003252) do
 
   create_table "payment_methods", force: :cascade do |t|
     t.string "payment_type", null: false
+    t.string "account_name", null: false
     t.string "card_number", null: false
     t.string "expiry_date", null: false
-    t.boolean "is_main", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
