@@ -2,6 +2,8 @@ class CreateShippingAddresses < ActiveRecord::Migration[7.1]
   def change
     create_table :shipping_addresses do |t|
       t.bigint :user_id, null: false
+      t.string :contact_name, null: false
+      t.string :contact_number, null: false
       t.string :street_address, null: false
       t.string :barangay, null: false
       t.string :city, null: false
