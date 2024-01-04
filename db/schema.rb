@@ -83,6 +83,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_003252) do
 
   create_table "shipping_addresses", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "contact_name", null: false
+    t.string "contact_number", null: false
     t.string "street_address", null: false
     t.string "barangay", null: false
     t.string "city", null: false
