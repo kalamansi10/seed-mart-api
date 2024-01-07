@@ -1,13 +1,22 @@
-##### This is a Rails API backend for the seed-mart React app.
+# Seed-Mart React App - Rails API Backend
 
-##### After cloning the repository, to deploy API run the following command:
-    bundle install
-    rails db:create
-    rails db:migrate
-    rails db:seed
-    rails s
+This repository contains the Rails API backend for the Seed-Mart React app.
 
-##### Seed account:
-    email: aaa@aaa
-    password: aaa@aaa
+## Getting Started
 
+After cloning the repository, use the following commands to deploy the API:
+
+```bash
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed
+rails s
+```
+
+```bash
+Seed account:
+
+email: aaa@aaa
+password: aaa@aaa
+```
