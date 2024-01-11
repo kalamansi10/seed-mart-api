@@ -25,7 +25,7 @@ class Api::V1::ShopController < ApplicationController
   # GET /api/v1/get_item/:item_id
   def get_item
     # Retrieve details of a specific item
-    render json: Item.find(params[:item_id])
+    render json: Item.get(params[:item_id])
   end
 
   # GET /api/v1/items_properties
