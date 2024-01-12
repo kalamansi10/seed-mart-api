@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     get "/is-cart-empty", to: "cart#is_cart_empty?"
   end
 
+  concern :order_actions do
+    post "/order", to: "order#process_order"
+  end
+
   concern :user_actions do
     get "/get-shipping-addresses", to: "user#get_shipping_addresses"
     post "/add-shipping-address", to: "user#add_shipping_addresses"
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       concerns :shop_actions
       concerns :cart_actions
+      concerns :order_actions
       concerns :user_actions
     end
   end
