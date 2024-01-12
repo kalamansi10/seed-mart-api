@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_003252) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_12_102427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,19 +48,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_003252) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", id: false, force: :cascade do |t|
-    t.bigint "order_reference", null: false
+  create_table "orders", force: :cascade do |t|
+    t.string "order_reference", null: false
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.bigint "shipping_address_id", null: false
     t.bigint "payment_method_id", null: false
     t.integer "amount", null: false
-    t.json "adjustments", null: false
+    t.json "adjustments"
     t.integer "total", null: false
     t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_reference"], name: "index_orders_on_order_reference"
   end
 
   create_table "payment_methods", force: :cascade do |t|
