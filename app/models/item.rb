@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
   has_many :carted_items
-  has_many :orders, dependent: :destroy
+  has_many :orders
   has_many :reviews, dependent: :destroy
 
   def self.get(item_id)
