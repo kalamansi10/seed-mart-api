@@ -3,13 +3,10 @@ class Api::V1::OrderController < ApplicationController
     reference_number = generate_reference_number
 
     orders_params.each do |order|
-      order = build_order(reference_number, order)
-
-      unless order.save
+      unless create_order(reference_number, order)
         render json: { error: order.errors.full_messages.join(", ") }, status: :unprocessable_entity
         return
       end
-
       remove_carted(order[:carted_id])
     end
 
@@ -18,8 +15,8 @@ class Api::V1::OrderController < ApplicationController
 
   private
 
-  def build_order(reference_number, order)
-    current_user.orders.build(
+  def create_order(reference_number, order)
+    current_user.orders.create(
       order_reference: reference_number,
       item_id: order[:item_id],
       shipping_address_id: order[:shipping_address_id],
@@ -27,7 +24,7 @@ class Api::V1::OrderController < ApplicationController
       amount: order[:amount],
       adjustments: order[:adjustments],
       total: order[:total],
-      status: "To ship"
+      status: "Delivery attempt"
     )
   end
 
