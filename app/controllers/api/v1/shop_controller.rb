@@ -7,11 +7,11 @@ class Api::V1::ShopController < ApplicationController
     # Filter items based on keyword and additional filters
     item_list = item_sorter(item_filter(price_filter(Item)))
                 .where("tags LIKE ?", "%#{keyword}%")
-                .limit(20)
-                .map { |item| item_details(item) }
 
     render json: {
-      item_list: item_list,
+      item_list: item_list.limit(20)
+                          .offset(offset)
+                          .map { |item| item_details(item) },
       item_count: item_list.count
     }
   end
