@@ -11,6 +11,9 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
   end
 
+  def google_auth
+  end
+
   def destroy
     sign_out current_user
   end
