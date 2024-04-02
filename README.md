@@ -6,6 +6,8 @@ This repository contains the Rails API backend for the Seed-Mart React app.
 
 After cloning the repository, use the following commands to deploy the API:
 
+Note: Must have PostgreSQL installed and running on the background.
+
 ```bash
 bundle install
 rails db:create
