@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: seed_mart_api_production
-  username: seed_mart_api
-  password: <%= ENV["SEED_MART_API_DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
