@@ -1,6 +1,7 @@
 class CreatePaymentMethods < ActiveRecord::Migration[7.1]
   def change
     create_table :payment_methods do |t|
+      t.bigint :user_id, null: false
       t.string :payment_type, null: false
       t.string :account_name, null: false
       t.string :card_number, null: false
