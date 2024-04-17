@@ -20,9 +20,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    # Update the item with the new attributes
+    if current_user.update(updated_attributes)
+    # Successfully updated
+      render json: { message: "Item updated successfully" }, status: :ok
+    else
+    # Failed to update
+      render json: { message: "Failed to update item" }, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -49,11 +56,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update,
                                        keys: [:name,
-                                              :gender,
+                                              :email,
                                               :birthday,
-                                              :adresses,
-                                              :payment_method
+                                              :gender,
                                             ])
+  end
+
+  def updated_attributes
+    params.require(:user).permit(:name, :email, :birthday, :gender)
   end
 
   # The path used after sign up.
