@@ -3,7 +3,7 @@ class Api::V1::UserController < ApplicationController
     render json: current_user.shipping_addresses.order(created_at: :desc)
   end
 
-  def add_shipping_addresses
+  def add_shipping_address
     main_address = current_user.shipping_addresses.find_by(is_main: true)
     if current_user.shipping_addresses.create(shipping_address_params) && main_address && shipping_address_params[:is_main]
       main_address.update(is_main: false)
@@ -12,7 +12,8 @@ class Api::V1::UserController < ApplicationController
 
   def update_shipping_address
     main_address = current_user.shipping_addresses.find_by(is_main: true)
-    if current_user.shipping_addresses.update(shipping_address_params) && main_address && shipping_address_params[:is_main]
+    address_to_update = ShippingAddress.find(shipping_address_params[:id])
+    if address_to_update.update(shipping_address_params) && main_address && shipping_address_params[:is_main]
       main_address.update(is_main: false)
     end
   end
@@ -25,6 +26,7 @@ class Api::V1::UserController < ApplicationController
 
   def shipping_address_params
     params.require(:shipping_address).permit(
+      :id,
       :contact_name,
       :contact_number,
       :street_address,

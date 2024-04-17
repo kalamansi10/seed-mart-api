@@ -22,12 +22,14 @@ Rails.application.routes.draw do
   end
 
   concern :order_actions do
+    get "/order/:reference_id", to: "order#get_order"
     post "/order", to: "order#process_order"
+    get "/order-list", to: "order#order_list"
   end
 
   concern :user_actions do
     get "/get-shipping-addresses", to: "user#get_shipping_addresses"
-    post "/add-shipping-address", to: "user#add_shipping_addresses"
+    post "/add-shipping-address", to: "user#add_shipping_address"
     put "/update-shipping-address", to: "user#update_shipping_address"
     delete "/remove-shipping-address/:shipping_address_id", to: "user#remove_shipping_address"
 
@@ -35,9 +37,6 @@ Rails.application.routes.draw do
     post "/add-payment-method", to: "user#add_payment_method"
     put "/update-payment-method", to: "user#update_payment_method"
     delete "/remove-payment-method/:payment_method_id", to: "user#remove_payment_method"
-
-    get "/get-orders", to: "user#get_orders"
-    get "/get-order/:order_reference", to: "user#get_order"
   end
 
   namespace :api do
