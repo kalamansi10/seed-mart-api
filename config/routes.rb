@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   }
 
   concern :item_actions do
-    get "/item/search", to: "shop#search_items"
-    get "/item/:item_id", to: "shop#get_item"
+    get "/item/search", to: "item#search_items"
+    get "/item/:item_id", to: "item#get_item"
   end
 
   concern :cart_actions do
@@ -19,9 +19,9 @@ Rails.application.routes.draw do
   end
 
   concern :order_actions do
+    get "/order/list", to: "order#get_order_list"
     get "/order/:reference_id", to: "order#get_order"
     post "/order", to: "order#process_order"
-    get "/order/list", to: "order#get_order_list"
   end
 
   concern :account_actions do
@@ -36,9 +36,16 @@ Rails.application.routes.draw do
     # delete "/remove-payment-method/:payment_method_id", to: "user#remove_payment_method"
   end
 
+  concern :review_action do
+    get "/review/list/:item_id", to: "review#getReviewList"
+    post "/review", to: "review#addReview"
+    put "/review", to: "review#editReview"
+    delete "/review/:review_id", to: "review#deleteReview"
+  end
+
   concern :misc_actions do
-    get "/misc/active-banners", to: "shop#get_active_banners"
-    get "/misc/item-properties", to: "shop#get_item_properties"
+    get "/misc/active-banners", to: "misc#get_active_banners"
+    get "/misc/item-properties", to: "misc#get_item_properties"
   end
 
   namespace :api do
@@ -47,6 +54,7 @@ Rails.application.routes.draw do
       concerns :cart_actions
       concerns :order_actions
       concerns :account_actions
+      concerns :review_action
       concerns :misc_actions
     end
   end
