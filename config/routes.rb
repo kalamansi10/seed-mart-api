@@ -4,47 +4,50 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
 
-  concern :shop_actions do
-    get "/search", to: "shop#search"
-    get "/items-properties", to: "shop#items_properties"
-    get "/active-banners", to: "shop#active_banners"
-    get "/get-item/:item_id", to: "shop#get_item"
+  concern :item_actions do
+    get "/item/search", to: "shop#search_items"
+    get "/item/:item_id", to: "shop#get_item"
   end
 
   concern :cart_actions do
-    get "/get-cart", to: "cart#get_cart"
-    get "/get-for-checkout", to: "cart#get_for_checkout"
-    post "/add-to-cart", to: "cart#add_to_cart"
-    put "/update-carted-amount/:carted_id/:amount", to: "cart#update_carted_amount"
-    put "/update-checkout-status/:carted_id/:is_for_checkout", to: "cart#update_checkout_status"
-    delete "/remove-from-cart/:carted_id", to: "cart#remove_from_cart"
-    get "/is-cart-empty", to: "cart#is_cart_empty?"
+    get "/cart", to: "cart#get_cart"
+    get "/cart/for-checkout", to: "cart#get_for_checkout"
+    post "/cart", to: "cart#add_to_cart"
+    put "/cart/update-amount/:carted_id/:amount", to: "cart#update_carted_amount"
+    put "/cart/update-status/:carted_id/:is_for_checkout", to: "cart#update_checkout_status"
+    delete "/cart/:carted_id", to: "cart#remove_from_cart"
   end
 
   concern :order_actions do
     get "/order/:reference_id", to: "order#get_order"
     post "/order", to: "order#process_order"
-    get "/order-list", to: "order#order_list"
+    get "/order/list", to: "order#get_order_list"
   end
 
-  concern :user_actions do
-    get "/get-shipping-addresses", to: "user#get_shipping_addresses"
-    post "/add-shipping-address", to: "user#add_shipping_address"
-    put "/update-shipping-address", to: "user#update_shipping_address"
-    delete "/remove-shipping-address/:shipping_address_id", to: "user#remove_shipping_address"
+  concern :account_actions do
+    get "/account/shipping-address/list", to: "account#get_shipping_address_list"
+    post "/account/shipping-address", to: "account#add_shipping_address"
+    put "/account/shipping-address", to: "account#update_shipping_address"
+    delete "/account/shipping-address/:shipping_address_id", to: "account#remove_shipping_address"
 
-    get "/get-payment-methods", to: "user#get_payment_methods"
-    post "/add-payment-method", to: "user#add_payment_method"
-    put "/update-payment-method", to: "user#update_payment_method"
-    delete "/remove-payment-method/:payment_method_id", to: "user#remove_payment_method"
+    # get "/get-payment-methods", to: "user#get_payment_methods"
+    # post "/add-payment-method", to: "user#add_payment_method"
+    # put "/update-payment-method", to: "user#update_payment_method"
+    # delete "/remove-payment-method/:payment_method_id", to: "user#remove_payment_method"
+  end
+
+  concern :misc_actions do
+    get "/misc/active-banners", to: "shop#get_active_banners"
+    get "/misc/item-properties", to: "shop#get_item_properties"
   end
 
   namespace :api do
     namespace :v1 do
-      concerns :shop_actions
+      concerns :item_actions
       concerns :cart_actions
       concerns :order_actions
-      concerns :user_actions
+      concerns :account_actions
+      concerns :misc_actions
     end
   end
 end

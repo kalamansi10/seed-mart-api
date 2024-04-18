@@ -1,8 +1,10 @@
 class Api::V1::OrderController < ApplicationController
+  # GET /api/v1/order/:reference_id
   def get_order
     render json: Order.where(reference_id: params[:reference_id])
   end
 
+  # POST /api/v1/order
   def process_order
     reference_number = generate_reference_number
 
@@ -17,7 +19,8 @@ class Api::V1::OrderController < ApplicationController
     render json: { message: "Orders processed successfully", reference_number: reference_number }
   end
 
-  def order_list
+  # GET /api/v1/order/list
+  def get_order_list
     render json: current_user.orders, include: [:item, :review]
   end
 
