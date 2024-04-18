@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_102427) do
   end
 
   create_table "payment_methods", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "payment_type", null: false
     t.string "account_name", null: false
     t.string "card_number", null: false
@@ -74,6 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_102427) do
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
+    t.bigint "order_id", null: false
     t.integer "rating", null: false
     t.text "comment"
     t.datetime "created_at", null: false
