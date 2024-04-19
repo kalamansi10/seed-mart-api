@@ -61,7 +61,7 @@ class Api::V1::ItemController < ApplicationController
         name: item.name,
         price: item.price,
         preview_image: item.image_links[0],
-        items_sold: item.orders.where(status: 'received').count
+        item_sold: item.orders.count
       }
     end
 end

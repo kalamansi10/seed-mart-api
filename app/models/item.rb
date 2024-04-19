@@ -16,7 +16,7 @@ class Item < ApplicationRecord
   end
 
   def item_sold
-    orders.where(status: 'completed').count
+    orders.count
   end
 
   def average_rating
