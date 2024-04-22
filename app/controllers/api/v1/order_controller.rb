@@ -21,7 +21,7 @@ class Api::V1::OrderController < ApplicationController
 
   # GET /api/v1/order/list
   def get_order_list
-    render json: current_user.orders, include: [:item, :review]
+    render json: current_user.orders.order(created_at: :desc), include: [:item, :review]
   end
 
   # POST /api/v1/order/status
