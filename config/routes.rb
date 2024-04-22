@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get "/order/list", to: "order#get_order_list"
     get "/order/:reference_id", to: "order#get_order"
     post "/order", to: "order#process_order"
+    post "/order/status", to: "order#update_order_status"
   end
 
   concern :account_actions do

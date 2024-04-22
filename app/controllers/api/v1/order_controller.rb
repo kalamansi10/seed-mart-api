@@ -1,7 +1,7 @@
 class Api::V1::OrderController < ApplicationController
   # GET /api/v1/order/:reference_id
   def get_order
-    render json: Order.where(reference_id: params[:reference_id])
+    render json: Order.where(order_reference: params[:reference_id])
   end
 
   # POST /api/v1/order
@@ -24,6 +24,12 @@ class Api::V1::OrderController < ApplicationController
     render json: current_user.orders, include: [:item, :review]
   end
 
+  # POST /api/v1/order/status
+  def update_order_status
+    order = Order.where(order_reference: params[:order][:order_reference])
+    order.update(status: params[:order][:status])
+  end
+
   private
 
   def create_order(reference_number, order)
@@ -35,7 +41,7 @@ class Api::V1::OrderController < ApplicationController
       amount: order[:amount],
       adjustments: order[:adjustments],
       total: order[:total],
-      status: "Delivery attempt"
+      status: "To Receive"
     )
   end
 
