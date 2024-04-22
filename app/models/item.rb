@@ -7,9 +7,6 @@ class Item < ApplicationRecord
     includes(:reviews, :orders)
       .find(item_id)
       .as_json(
-        include: {
-          reviews: {},
-        },
         methods: [:average_rating, :item_sold],
         except: [:created_at, :updated_at]
       )
