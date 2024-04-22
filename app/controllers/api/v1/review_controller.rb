@@ -1,8 +1,9 @@
 class Api::V1::ReviewController < ApplicationController
     # GET /api/v1/review/list/:item_id
     def getReviewList
-      item = Item.find(params[:item_id])
-      render json: item.reviews.order(created_at: :desc)
+      reviews = Item.find(params[:item_id]).reviews.order(created_at: :desc)
+      reviews = addReviewer(reviews)
+      render json: reviews
     end
 
     # POST /api/v1/review
@@ -19,6 +20,14 @@ class Api::V1::ReviewController < ApplicationController
     end
 
     private
+
+    def addReviewer(reviews)
+      reviews.map do |review|
+        review_hash = review.attributes
+        return review_hash if review.is_anonymous?
+        review_hash.merge({ reviewer: review.user.name })
+      end
+    end
 
     def review_params
       params.require(:review).permit(
