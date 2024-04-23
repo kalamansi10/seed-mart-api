@@ -4,7 +4,7 @@ class CreateBanners < ActiveRecord::Migration[7.0]
       t.string :banner_name
       t.string :image_link
       t.string :banner_link
-      t.boolean :is_active?, default: true
+      t.boolean :is_active, default: true
 
       t.timestamps
     end

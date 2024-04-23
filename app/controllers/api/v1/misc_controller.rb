@@ -1,7 +1,7 @@
 class Api::V1::MiscController < ApplicationController
   # GET /api/v1/misc/active-banners
   def get_active_banners
-    render json: Banner.where(is_active?: true)
+    render json: Banner.where(is_active: true)
   end
 
   # GET /api/v1/misc/item-properties

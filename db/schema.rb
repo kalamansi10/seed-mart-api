@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_102427) do
     t.string "banner_name"
     t.string "image_link"
     t.string "banner_link"
-    t.boolean "is_active?", default: true
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -76,7 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_102427) do
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.bigint "order_id", null: false
-    t.boolean "is_anonymous?", default: false
+    t.boolean "is_anonymous", default: false
     t.integer "rating", null: false
     t.text "comment"
     t.datetime "created_at", null: false
