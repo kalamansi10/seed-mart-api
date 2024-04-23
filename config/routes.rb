@@ -38,10 +38,11 @@ Rails.application.routes.draw do
   end
 
   concern :review_action do
-    get "/review/list/:item_id", to: "review#getReviewList"
-    post "/review", to: "review#addReview"
-    put "/review", to: "review#editReview"
-    delete "/review/:review_id", to: "review#deleteReview"
+    get "/review/list/:item_id", to: "review#get_review_list"
+    get "/review/:order_id", to: "review#get_review"
+    post "/review", to: "review#add_review"
+    put "/review/:review_id", to: "review#edit_review"
+    delete "/review/:review_id", to: "review#delete_review"
   end
 
   concern :misc_actions do
